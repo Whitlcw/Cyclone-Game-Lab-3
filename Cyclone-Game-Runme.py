@@ -1,4 +1,4 @@
-#setup
+#setup---------------------------------
 import RPi.GPIO as GPIO
 import time
 
@@ -16,15 +16,18 @@ for i in LED_pins:
 GPIO.setup(btn_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #sets the button pin as pulldown input. Button should send 3.3V to btn_pin
 GPIO.add_event_detect(btn_pin, GPIO_RISING)
 
-#main loop
+#main loop--------------------------------
 while true:
   for i in LED_pins:
     GPIO.output(i, GPIO.HIGH)
-    # wait for up to 5 seconds for a rising edge (timeout is in milliseconds)
+    # wait for a rising edge (timeout is in milliseconds)
     channel = GPIO.wait_for_edge(btn_pin, GPIO_RISING, timeout=flash_time*1000)
     if channel is None:
       
     else:
-      
+      if i == LED_pins[3]:
+        time.sleep(vict_time)
+  for i in LED_pins:
+    GPIO.output(i, GPIO.LOW)
     
   
